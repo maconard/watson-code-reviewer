@@ -1,12 +1,15 @@
----
 applications:
-- instances: 1
-  timeout: 180
-  name: hackathonproject
-  buildpack: sdk-for-nodejs
+- buildpacks: 
+  - sdk-for-nodejs
   command: npm start
+  domain: null
+  host: null
+  instances: 1
   memory: 256MB
-  domain: us-south.cf.appdomain.cloud
-  host: hackathonproject
+  name: hackathonproject
+  routes:
+  - route: hackathonproject.us-south.cf.appdomain.cloud
   services:
-    - cloud-object-storage-rz-80021
+  - cloud-object-storage-rz-80021
+  - cloud-object-storage-rz
+  timeout: 180
