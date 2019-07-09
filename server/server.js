@@ -25,6 +25,8 @@ require('./services/index')(app);
 require('./routers/index')(app, server);
 
 // Add your code here
+var IBMCloudEnv = require('ibm-cloud-env');
+IBMCloudEnv.init();
 
 const port = process.env.PORT || localConfig.port;
 server.listen(port, function(){

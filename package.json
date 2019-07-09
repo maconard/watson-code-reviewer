@@ -28,14 +28,14 @@
     "appmetrics-zipkin": "^1.1.1",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "log4js": "^4.0.2",
-    "ibm-cloud-env": "^0",
-    "ibm-cos-sdk": "^1"
+    "ibm-cloud-env": "^0.2.6",
+    "ibm-cos-sdk": "^1",
+    "log4js": "^4.0.2"
   },
   "devDependencies": {
-    "nodemon": "^1.12.1",
     "chai": "^4.2.0",
     "mocha": "^6.0.0",
-    "nyc": "^13.3.0"
+    "nodemon": "^1.12.1",
+    "nyc": "^14.1.1"
   }
 }
