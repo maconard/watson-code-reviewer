@@ -4,5 +4,5 @@
   "cloud_object_storage_iam_apikey_description": "description_here",
   "cloud_object_iam_apikey_name": "key_name_here",
   "cloud_object_storage_iam_serviceid_crn": "",
-  "cloud_ibject_storage_resource_instance_id": ""
+  "cloud_object_storage_resource_instance_id": ""
 }
