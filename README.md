@@ -9,4 +9,4 @@ On Linux execute `./run-dev` to launch locally on `localhost:3000`, you may need
 
 On Mac execute `ibmcloud dev build` to build Docker images and `ibmcloud dev run` to launch on `localhost:3000`.
 
-To deploy to IBM cloud run `ibmcloud dev deploy`. This is at `https://hackathonproject.us-south.cf.appdomain.cloud/` currently.
+To deploy to IBM cloud run `ibmcloud dev deploy` or `ibmcloud app push`. This is at `https://hackathonproject.us-south.cf.appdomain.cloud/` currently.
