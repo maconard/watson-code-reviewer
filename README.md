@@ -1,1 +1,1 @@
-This is team `std::unique_ptr<Team>`'s IBM hackathon project!
+This is team `unique_ptr<Team> m_OurTeam`'s IBM hackathon project!
