@@ -6,3 +6,5 @@ localdev-config.json
 vcap-local.js
 credentials.json
 *.log
+package-lock.json
+.ibm-project
