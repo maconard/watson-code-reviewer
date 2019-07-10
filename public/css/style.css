@@ -2,10 +2,18 @@
 
 #codebox-div {
     height: 70%; 
-    width: 70%; 
+    width: 100%; 
     display: block; 
     margin-left: auto; 
     margin-right: auto;
+}
+
+#formatted-div {
+    width: 100%; 
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto;
+    text-align: left;
 }
 
 #codebox {
@@ -15,6 +23,10 @@
     margin-left: auto; 
     margin-right: auto; 
     resize: none;
+}
+
+#formatted-code {
+    width: 100%;
 }
 
 #watson-submit-button {
