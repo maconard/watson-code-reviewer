@@ -33,6 +33,7 @@
     "express": "^4.16.4",
     "ibm-cloud-env": "^0.2.6",
     "ibm-cos-sdk": "^1",
+    "ibm-watson": "^4.2.1",
     "log4js": "^4.0.2",
     "node-sass": "^4.12.0",
     "react": "^16.8.6",

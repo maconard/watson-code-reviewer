@@ -9,3 +9,5 @@ credentials.json
 package-lock.json
 .ibm-project
 run-local
+ibm-credentials.env
+
