@@ -26,6 +26,7 @@ $(document).ready(function() {
         formatBox.html("<pre>" + code + "</pre>");
         formatBox.parent().show();
         resetCodeBtn.attr('disabled',false);
+        submitCodeBtn.attr('disabled',false);
     });
 
     resetCodeBtn.on('click', function(e) {
