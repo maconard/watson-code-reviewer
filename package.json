@@ -28,6 +28,7 @@
     "appmetrics-prometheus": "^2.0.0",
     "appmetrics-zipkin": "^1.1.1",
     "body-parser": "^1.18.3",
+    "btoa": "^1.2.1",
     "carbon-components": "^10.3.1",
     "carbon-components-react": "^7.3.2",
     "express": "^4.16.4",
@@ -37,7 +38,8 @@
     "log4js": "^4.0.2",
     "node-sass": "^4.12.0",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
