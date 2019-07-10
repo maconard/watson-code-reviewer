@@ -21,3 +21,8 @@
     float: right!important;
     margin-right: 10px;
 }
+
+#watson-reset-button {
+    float: left!important;
+    margin-left: 10px;
+}
