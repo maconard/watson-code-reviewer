@@ -12,41 +12,19 @@
     <h2>This is a Node.js app built for the IBM Cloud using Watson.</h2>
 </header>
 
-<div class="bx--snippet bx--snippet--multi" data-code-snippet> 
-    <div class="bx--snippet-container" aria-label="Code Snippet Text">
-    <pre>
-    <code>@mixin grid-container {
-          width: 100%;
-          padding-right: padding(mobile);
-          padding-left: padding(mobile);
-      
-          @include breakpoint(bp--xs--major) {
-            padding-right: padding(xs);
-            padding-left: padding(xs);
-          }
-        }
-      
-        $z-indexes: (
-          modal : 9000,
-          overlay : 8000,
-          dropdown : 7000,
-          header : 6000,
-          footer : 5000,
-          hidden : - 1,
-          overflowHidden: - 1,
-          floating: 10000
-        );
-    </code>
-    </pre>
-    </div>
-</div>
-
 <main style="height: 800px">
     <div id="codebox-div">
         <textarea id="codebox" rows="30" placeholder="Paste code here...."></textarea>
->>>>>>> refs/remotes/origin/master
+    </div>
+    <div id="formatted-div" hidden>
+        <pre>
+        <code id="formatted-code"></code>
+        </pre>
     </div>
 
+    <button id="watson-reset-button" class="bx--btn bx--btn--secondary" type="button" disabled="true">
+            Reset
+    </button>
     <button id="watson-submit-button" class="bx--btn bx--btn--secondary" type="button">
             Submit to Watson
     </button>
