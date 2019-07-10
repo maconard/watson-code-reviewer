@@ -1,7 +1,15 @@
 var statRules = {}; 
 
-function genCodeStatistics(code) 
+function genCodeStatistics(rawCode) 
 {
+    let lines = rawCode.split('\n'); 
+
+    let code = 
+    {
+        all: { lines: lines }, 
+        functions: findFunctionsInCode(lines)  
+    };
+
     let stats = 
     {
         all: { lines: [] }, 
@@ -56,6 +64,7 @@ function findFunctionsInCode(lines)
                 // found function (this is not great but will work for simple code)
                 let fName = prefixIndex[0];
                 fName = fName.substr(1, fName.length - 2);  
+                if (fName.match('if|for|while|try|catch')) continue; 
 
                 if (curFunction != null) 
                 {
@@ -84,6 +93,9 @@ function createFunctionData(name, lines, start, end)
     let foundLine = false; 
     let tmp = []; 
 
+    start = parseInt(start); 
+    end = parseInt(end); 
+
     for (let i = start; i < end; i++) 
     {
         if (lines[i].match(notJustSpaces)) 
@@ -102,24 +114,5 @@ function createFunctionData(name, lines, start, end)
         }
     }
 
-    // console.log('Function "' + name + '"'); 
-    // console.log(func.lines); 
-
     return func; 
 }
-
-$('#codebox').on('keyup', function(e) 
-{
-    let rawCode = $(e.target).val(); 
-    let lines = rawCode.split('\n'); 
-
-    let code = 
-    {
-        all: { lines: lines }, 
-        functions: findFunctionsInCode(lines)  
-    };
-
-    stats = genCodeStatistics(code); 
-
-    // console.log(stats);  
-}); 

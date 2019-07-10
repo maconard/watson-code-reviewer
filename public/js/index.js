@@ -20,6 +20,8 @@ $(document).ready(function() {
         //console.log("Submitted code:");
         //console.log(code);
 
+        console.log(genCodeStatistics(code)); 
+
         codeBox.hide();
         formatBox.html("<pre>" + code + "</pre>");
         formatBox.parent().show();
