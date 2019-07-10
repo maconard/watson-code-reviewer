@@ -5,7 +5,7 @@ Ask Michael Conard (conard@ibm.com) for an apikey to put in your local `server/l
 Linux:
 
 1. Run `npm install` and `npm install ibm-cloud-env` in the root directory to install node dependencies for the project.
-2. Execute `./run-local` or `npm run dev` to launch locally on `localhost:3000`, you may need to run `chmod +x run-dev`.
+2. Execute `./run-dev` or `npm run dev` to launch locally on `localhost:3000`, you may need to run `chmod +x run-dev`.
 
 Mac:
 1. Run `ibmcloud dev build` to build Docker images

@@ -8,3 +8,4 @@ credentials.json
 *.log
 package-lock.json
 .ibm-project
+run-local
