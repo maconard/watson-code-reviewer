@@ -6,6 +6,15 @@ $(document).ready(function() {
     let codeBox = $('#codebox');
     let formatBox = $('#formatted-code');
 
+    codeBox.on('keyup', function(e) {
+        var code = codeBox.val();
+        if(code.length == 0) {
+            submitCodeBtn.attr('disabled',true);
+        } else {
+            submitCodeBtn.attr('disabled',false);
+        }
+    });
+
     submitCodeBtn.on('click', function(e) {
         var code = codeBox.val();
         //console.log("Submitted code:");
@@ -14,8 +23,8 @@ $(document).ready(function() {
         console.log(genCodeStatistics(code)); 
 
         codeBox.hide();
-        formatBox.html(code);
-        formatBox.parent().parent().show();
+        formatBox.html("<pre>" + code + "</pre>");
+        formatBox.parent().show();
         resetCodeBtn.attr('disabled',false);
     });
 
@@ -23,7 +32,7 @@ $(document).ready(function() {
         codeBox.val("");
         formatBox.html("");
         resetCodeBtn.attr('disabled',true);
-        formatBox.parent().parent().hide();
+        formatBox.parent().hide();
         codeBox.show();
     });
 });
