@@ -84,6 +84,9 @@ function createFunctionData(name, lines, start, end)
     let foundLine = false; 
     let tmp = []; 
 
+    start = parseInt(start); 
+    end = parseInt(end); 
+
     for (let i = start; i < end; i++) 
     {
         if (lines[i].match(notJustSpaces)) 
@@ -102,9 +105,6 @@ function createFunctionData(name, lines, start, end)
         }
     }
 
-    // console.log('Function "' + name + '"'); 
-    // console.log(func.lines); 
-
     return func; 
 }
 
@@ -121,5 +121,5 @@ $('#codebox').on('keyup', function(e)
 
     stats = genCodeStatistics(code); 
 
-    // console.log(stats);  
+    console.log(stats);  
 }); 
