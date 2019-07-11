@@ -17,11 +17,40 @@ $(document).ready(function() {
         var code = codeBox.val();
 
         let readabilities = getSlidingWindowRatings(code);//genCodeStatistics(code); 
+        let stats = genCodeStatistics(code); 
+        let totalReadability = requestReadability(stats.all); 
+        // console.log(totalReadability); 
 
-        console.log(readabilities); 
+        let lines = code.split('\n'); 
+
+        // console.log(readabilities); 
 
         codeBox.hide();
-        formatBox.html("<pre>" + code + "</pre>");
+
+        formatBox.empty(); 
+
+        let color = getReadabilityColor(totalReadability);
+        formatBox.append('<code style="background-color:#' + color.toString(16) + ';font-size:24pt;"> Readability Score: ' + totalReadability + '%</code><br>'); 
+
+        let sum = 0.0; 
+        for (let i in lines) 
+        {
+            sum += readabilities[i].readability; 
+        }
+        sum /= readabilities.length; 
+        console.log('avg readability ' + sum); 
+
+        for (let i in lines) 
+        {
+            i = parseInt(i); 
+            lineNum = ((i+1) + '').padStart(4, ' ').replace(/ /g, '&nbsp;'); 
+            let line = lines[i]; 
+            let color = getReadabilityColor(readabilities[i].readability); 
+            formatBox.append('<code style="overflow-wrap: break-word;background-color:#' + color.toString(16) + ';font-family:"Courier New", Courier, monospace;">' + lineNum + '</code>'); 
+            formatBox.append('<code style="overflow-wrap: break-word;font-family:"Courier New", Courier, monospace;">&nbsp;' + escapeHtml(line) + '</code><br>'); 
+        }
+
+        // formatBox.html("<pre>" + code + "</pre>");
         formatBox.parent().show();
         resetCodeBtn.attr('disabled',false);
         submitCodeBtn.attr('disabled',false);
