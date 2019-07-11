@@ -9,7 +9,7 @@ function getReadabilityColor(readability)
     if (readability > 100) readability = 100; 
     readability = Math.round(readability); 
 
-    return readabilityColors[readability]; 
+    return readabilityColors[readability] || 0x7F7F7F; 
 }
 
 function generateReadabilityColors(red, yellow, green) 
