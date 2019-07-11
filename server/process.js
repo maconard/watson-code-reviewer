@@ -1,10 +1,11 @@
+require("dotenv").load();
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const request = require("request");
 const params = require("./watsonmodelparams");
 const wml_credentials = new Map();
 
 const mlInstanceID = params.mlInstanceId;
-const apikey = params.apikey;
+const apikey = process.env.apikey;
 const scoring_url = params.scoring_url;
 const options = params.options;
 const fields = params.fields;

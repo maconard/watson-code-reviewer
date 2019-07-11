@@ -12,3 +12,4 @@ run-local
 ibm-credentials.env
 apikey.js
 server/apikey.js
+.env
