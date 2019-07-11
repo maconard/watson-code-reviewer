@@ -28,14 +28,24 @@ require('./routers/index')(app, server);
 var IBMCloudEnv = require('ibm-cloud-env');
 IBMCloudEnv.init();
 
-//var Watson = require('ibm-watson');
-
-require('./process.js');
+//const watson = require('./process.js');
+var fs = require('fs');
+eval(fs.readFileSync('server/process.js')+'');
 
 const port = process.env.PORT || localConfig.port;
 server.listen(port, function(){
   logger.info(`nodejswebapp listening on http://localhost:${port}/appmetrics-dash`);
   logger.info(`nodejswebapp listening on http://localhost:${port}`);
+});
+
+app.use(express.json());
+app.use(express.urlencoded());
+
+app.route('/analyze').post(function (req, res) {
+    var payload = req.body.payload;
+    console.log(sendPayload);
+    console.log("Sending payload....");
+    sendPayload(JSON.stringify(payload));
 });
 
 app.use(function (req, res, next) {

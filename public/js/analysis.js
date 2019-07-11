@@ -4,6 +4,13 @@ $(document).ready(function() {
     let codeBox = $('#codebox');
     let formatBox = $('#formatted-code');
 
+    var sendPayload = function(payload) {
+        var dat = {payload: payload};
+        $.post("/analyze", dat, function(data, status) {
+            console.log("Data: " + data + "\nStatus: " + status);
+        });
+    }
+
     codeBox.on('keyup', function(e) {
         var code = codeBox.val();
         if(code.length == 0) {
@@ -39,6 +46,7 @@ $(document).ready(function() {
         ]; 
         console.log(stats); 
         console.log(outputs.toString()); 
+        sendPayload(stats);
 
         codeBox.hide();
         formatBox.html("<pre>" + code + "</pre>");
