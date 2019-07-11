@@ -1,4 +1,6 @@
 touch server/localdev-config.json
+touch .env
+
 read -p "Please enter API key for Watson Code Reviewer: " key
 
 echo -e "{
@@ -9,4 +11,7 @@ echo -e "{
   \"cloud_object_storage_iam_serviceid_crn\": \"\",
   \"cloud_object_storage_resource_instance_id\": \"\"
 }" > server/localdev-config.json
+
+echo -e "SASS_PATH=\"node_modules\"
+apikey=\"$key\"" > .env
 
