@@ -35,7 +35,7 @@ $(document).ready(function() {
         let sum = 0.0; 
         for (let i in lines) 
         {
-            sum += readabilities[i].readability; 
+            sum += readabilities[i]; 
         }
         sum /= readabilities.length; 
         console.log('avg readability ' + sum); 
@@ -45,7 +45,7 @@ $(document).ready(function() {
             i = parseInt(i); 
             lineNum = ((i+1) + '').padStart(4, ' ').replace(/ /g, '&nbsp;'); 
             let line = lines[i]; 
-            let color = getReadabilityColor(readabilities[i].readability); 
+            let color = getReadabilityColor(readabilities[i]); 
             formatBox.append('<code style="overflow-wrap: break-word;background-color:#' + color.toString(16) + ';font-family:"Courier New", Courier, monospace;">' + lineNum + '</code>'); 
             formatBox.append('<code style="overflow-wrap: break-word;font-family:"Courier New", Courier, monospace;">&nbsp;' + escapeHtml(line) + '</code><br>'); 
         }
