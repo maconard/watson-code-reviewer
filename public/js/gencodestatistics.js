@@ -44,7 +44,8 @@ var sendPayload = function(payload) {
     // console.log(dat);
 
     let out = 0; 
- 
+    //$("#loading-ajax").show();
+    
     $.ajax({
         type: 'POST', 
         url: '/analyze', 
@@ -53,6 +54,10 @@ var sendPayload = function(payload) {
         success: function(score, status) {
             // console.log("Score: " + score + "\nStatus: " + status);
             out = score; 
+            //$("#loading-ajax").hide();
+        },
+        error: function(err) {
+            //$("#loading-ajax").hide();
         }
     }); 
 
