@@ -18,27 +18,6 @@ $(document).ready(function() {
 
         let readabilities = getSlidingWindowRatings(code);//genCodeStatistics(code); 
 
-        // maxLineLength,avgLineLength,avgParensPerLine,maxParensPerLine,avgParenSpaceBuffersPerLine,avgPeriodsPerLine,maxPeriodsPerLine,avgComparisonsPerLine,maxComparisonsPerLine,avgSpacesPerLine,maxSpacesPerLine,avgTabsPerLine,maxTabsPerLine,avgIdentifiersPerLine,maxIdentifiersPerLine
-        // let outputs = [
-        //     all.maxLineLength, 
-        //     all.avgLineLength, 
-        //     all.avgParensPerLine, 
-        //     all.maxParensPerLine, 
-        //     all.avgParenSpaceBuffersPerLine, 
-        //     all.avgPeriodsPerLine, 
-        //     all.maxPeriodsPerLine, 
-        //     all.avgComparisonsPerLine, 
-        //     all.maxComparisonsPerLine, 
-        //     all.avgSpacesPerLine, 
-        //     all.maxSpacesPerLine, 
-        //     all.avgTabsPerLine, 
-        //     all.maxTabsPerLine, 
-        //     all.avgIdentifiersPerLine, 
-        //     all.maxIdentifiersPerLine 
-        // ]; 
-        console.log(readabilities); 
-        // console.log(readabilities.toString()); 
-
         codeBox.hide();
         formatBox.html("<pre>" + code + "</pre>");
         formatBox.parent().show();

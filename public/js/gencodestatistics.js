@@ -39,6 +39,15 @@ const KEYWORDS =
 
 var statRules = {}; 
 
+var sendPayload = function(payload) {
+    var dat = {payload: payload};
+    console.log(dat);
+
+    $.post("/analyze", dat, function(data, status) {
+        console.log("Data: " + data + "\nStatus: " + status);
+    });
+}
+
 function genCodeStatistics(rawCode) 
 {
     let lines = rawCode.split('\n'); 
@@ -104,7 +113,9 @@ function requestReadability(stats)
         stats.maxIdentifiersPerLine 
     ];
 
-    // TODO send [inputs] to Watson 
+    console.log(inputs);
+
+    sendPayload(inputs); 
 
     return Math.random(); 
 }
