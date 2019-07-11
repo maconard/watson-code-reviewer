@@ -76,7 +76,10 @@ function sendBatchPayload(payload) {
         data: dat, 
         async: false, 
         success: function(scores, status) {
+            console.log(scores); 
+            scores = JSON.parse('[' + scores + ']'); 
             console.log("Scores: " + scores.toString() + "\nStatus: " + status);
+            console.log(typeof(scores)); 
             for (let i in scores) 
             {
                 scores[i] = parseFloat(scores[i]); 
@@ -338,6 +341,7 @@ function getSlidingWindowRatings(rawCode){
     let wndw;
 
     let readList = []; 
+    let lists = []; 
 
     // console.log('lines: ' + lines.length); 
     for (let i = 0; i < lines.length; i++){
@@ -351,6 +355,11 @@ function getSlidingWindowRatings(rawCode){
         }
         let stats = genCodeStatistics(wndw); 
         readList.push(stats.all); 
+        if (readList.length > 50) 
+        {
+            lists.push(readList); 
+            readList = []; 
+        }
     }
     for (let i = 0; i < 5; i++){
         wndw = "";
@@ -361,9 +370,19 @@ function getSlidingWindowRatings(rawCode){
         let stats = genCodeStatistics(wndw); 
         readList.push(stats.all); 
     }
+    lists.push(readList); 
 
-    console.log('Size: ' + readList.length); 
-    let ratings = requestBatchReadability(readList); 
+    console.log('numRequests: ' + lists.length); 
+    let ratingsList = []; 
+    for (let i = 0; i < lists.length; i++) 
+    {
+        ratingsList.push(requestBatchReadability(lists[i])); 
+    }
+    let ratings = []; 
+    for (let i = 0; i < ratingsList.length; i++) 
+    {
+        ratings = ratings.concat(ratingsList[i]); 
+    }
     
     console.log('Ratings: ' + ratings); 
     lineratings = [];
@@ -378,12 +397,15 @@ function getRatingAverage(ratings)
 {
     let sum = 0.0; 
 
+    console.log(ratings); 
+
     for (value of ratings) 
     {
+        console.log(typeof(value)); 
         sum += value; 
     }
 
-    console.log('avg: ' + sum / ratings.length); 
+    console.log('sum: ' + sum + ' avg: ' + sum / ratings.length); 
 
     return sum / ratings.length; 
 }

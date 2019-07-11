@@ -16,9 +16,9 @@ $(document).ready(function() {
     submitCodeBtn.on('click', function(e) {
         var code = codeBox.val();
 
-        let readabilities = getSlidingWindowRatings(code);//genCodeStatistics(code); 
         let stats = genCodeStatistics(code); 
         let totalReadability = requestReadability(stats.all); 
+        let readabilities = getSlidingWindowRatings(code);//genCodeStatistics(code); 
         // console.log(totalReadability); 
 
         let lines = code.split('\n'); 
