@@ -1,4 +1,4 @@
-require("dotenv").load();
+require("dotenv").config();
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const request = require("request");
 const params = require("./watsonmodelparams");
