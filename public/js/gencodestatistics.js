@@ -39,7 +39,7 @@ const KEYWORDS =
 
 var statRules = {}; 
 
-var sendPayload = function(payload) {
+function sendPayload(payload) {
     var dat = {payload: payload};
     // console.log(dat);
 
@@ -57,6 +57,31 @@ var sendPayload = function(payload) {
     }); 
 
     return parseFloat(out); 
+}
+
+function sendBatchPayload(payload) {
+    var dat = {payload: payload};
+    // console.log(dat);
+
+    let out = 0; 
+ 
+    $.ajax({
+        type: 'POST', 
+        url: '/analyze-batch', 
+        data: dat, 
+        async: false, 
+        success: function(scores, status) {
+            console.log("Scores: " + scores.toString() + "\nStatus: " + status);
+            for (let i in scores) 
+            {
+                scores[i] = parseFloat(scores[i]); 
+                if (isNaN(scores[i])) scores[i] = 0; 
+            }
+            out = scores; 
+        }
+    }); 
+
+    return out; 
 }
 
 function genCodeStatistics(rawCode) 
@@ -103,9 +128,8 @@ function genCodeStatistics(rawCode)
     return stats; 
 }
 
-function requestReadability(stats) 
+function getStatList(stats) 
 {
-    // maxLineLength,avgLineLength,avgParensPerLine,maxParensPerLine,avgParenSpaceBuffersPerLine,avgPeriodsPerLine,maxPeriodsPerLine,avgComparisonsPerLine,maxComparisonsPerLine,avgSpacesPerLine,maxSpacesPerLine,avgTabsPerLine,maxTabsPerLine,avgIdentifiersPerLine,maxIdentifiersPerLine
     let inputs = [
         stats.maxLineLength, 
         stats.avgLineLength, 
@@ -123,12 +147,36 @@ function requestReadability(stats)
         stats.avgIdentifiersPerLine, 
         stats.maxIdentifiersPerLine 
     ];
+    return inputs; 
+}
 
+function requestReadability(stats) 
+{
+    // maxLineLength,avgLineLength,avgParensPerLine,maxParensPerLine,avgParenSpaceBuffersPerLine,avgPeriodsPerLine,maxPeriodsPerLine,avgComparisonsPerLine,maxComparisonsPerLine,avgSpacesPerLine,maxSpacesPerLine,avgTabsPerLine,maxTabsPerLine,avgIdentifiersPerLine,maxIdentifiersPerLine
+    
+    let inputs = getStatList(stats); 
     // console.log(inputs);
 
     let score = sendPayload(inputs); 
     console.log('Payload score: ' + score); 
     return score; 
+}
+
+function requestBatchReadability(statsBatch) 
+{
+    let batch = []; 
+
+    for (let i in statsBatch) 
+    {
+        batch.push(getStatList(statsBatch[i])); 
+        // batch.push(Math.random() * 100); 
+    }
+
+    console.log(batch); 
+
+    let scores = sendBatchPayload(batch); 
+    console.log('Payload scores: ' + scores); 
+    return scores; 
 }
 
 function findFunctionsInCode(tokens, lines) 
@@ -281,9 +329,10 @@ function createFunctionData(name, lines, start, end)
 
 function getSlidingWindowRatings(rawCode){
     let lines = rawCode.split('\n'); 
-    let ratings = [];
     let text = [];
     let wndw;
+
+    let readList = []; 
 
     // console.log('lines: ' + lines.length); 
     for (let i = 0; i < lines.length; i++){
@@ -296,8 +345,7 @@ function getSlidingWindowRatings(rawCode){
             wndw = wndw + "\n"+text[line];
         }
         let stats = genCodeStatistics(wndw); 
-        let readability = requestReadability(stats.all); 
-        ratings.push({ readability: readability });
+        readList.push(stats.all); 
     }
     for (let i = 0; i < 5; i++){
         wndw = "";
@@ -306,12 +354,16 @@ function getSlidingWindowRatings(rawCode){
             wndw = wndw + "\n"+text[line];
         }
         let stats = genCodeStatistics(wndw); 
-        let readability = requestReadability(stats.all); 
-        ratings.push({ readability: readability });
+        readList.push(stats.all); 
     }
-    console.log(ratings); 
+
+    console.log('Size: ' + readList.length); 
+    let ratings = requestBatchReadability(readList); 
+    
+    console.log('Ratings: ' + ratings); 
     lineratings = [];
     for (let i = 0; i <lines.length; i++){
+        console.log('line ratings ' + i); 
         lineratings.push(getRatingAverage(ratings.slice(i, i+5)));
     }
     return lineratings;
@@ -319,18 +371,14 @@ function getSlidingWindowRatings(rawCode){
 
 function getRatingAverage(ratings) 
 {
-    newRatings = {}; 
+    let sum = 0.0; 
 
-    for (key in ratings[0]) 
+    for (value of ratings) 
     {
-        let value = ratings[0][key]; 
-        for (let i = 1; i < ratings.length; i++) 
-        {
-            value += ratings[i][key]; 
-        }
-        value /= ratings.length; 
-        newRatings[key] = value; 
+        sum += value; 
     }
 
-    return newRatings; 
+    console.log('avg: ' + sum / ratings.length); 
+
+    return sum / ratings.length; 
 }
