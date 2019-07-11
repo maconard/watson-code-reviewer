@@ -1,6 +1,7 @@
+require("dotenv").config();
 IBM_Cloud_IAM_uid = "bx";
 IBM_Cloud_IAM_pwd = "bx";
-apikey = require("./apikey.js");
+apikey = process.env.apikey;
 btoa = require("btoa");
 
 module.exports = {
