@@ -1,5 +1,13 @@
 //import { Button } from 'carbon-components-react';
 
+//import React from 'react'
+//import ReactDOM from 'react-dom'
+//import App from './App'
+//ReactDOM.render((
+//    <App/>
+//), document.getElementById('root')
+//);
+
 $(document).ready(function() {
     let submitCodeBtn = $('#watson-submit-button');
     let resetCodeBtn = $('#watson-reset-button');
