@@ -19,7 +19,7 @@
         <button id="watson-reset-button" class="bx--btn bx--btn--secondary" type="button" disabled="true">
                 Reset
         </button>
-        <button id="watson-submit-button" class="bx--btn bx--btn--secondary" type="button" disabled="true">
+        <button id="watson-submit-button" class="bx--btn bx--btn--secondary" type="button"  onclick="pageRedirect()">
                 Submit to Watson
         </button>
     </div>    
@@ -33,5 +33,10 @@
 <script src="./js/gencodestatistics.js"></script>
 <script src="./js/stats/linelength.js"></script>
 <script src="./js/stats/simplecount.js"></script>
+<script type="text/javascript">
+    function pageRedirect() {
+      href = "result.html";
+    }      
+</script> 
 
 </html>
