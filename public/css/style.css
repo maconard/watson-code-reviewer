@@ -68,6 +68,12 @@
     text-align: center;
 }
 
+.ibm-card {
+    display: inline-block;
+    text-align: center;
+    width: 33%;
+}
+
 /* Three columns side by side */
 .column {
 

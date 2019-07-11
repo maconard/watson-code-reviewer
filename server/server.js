@@ -48,6 +48,14 @@ app.route('/analyze').post(function (req, res) {
     sendPayload(payload,res);
 });
 
+app.route('/analyze-batch').post(function (req, res) {
+    var payloads = req.body.payloads;
+    payloads = payloads.map(Number);
+    
+    console.log("Sending payloads....");
+    //sendPayload(payload,res);
+});
+
 app.use(function (req, res, next) {
   res.sendFile(path.join(__dirname, '../public', '404.html'));
 });
