@@ -18,6 +18,8 @@ $(document).ready(function() {
 
         let readabilities = getSlidingWindowRatings(code);//genCodeStatistics(code); 
 
+        console.log(readabilities); 
+
         codeBox.hide();
         formatBox.html("<pre>" + code + "</pre>");
         formatBox.parent().show();

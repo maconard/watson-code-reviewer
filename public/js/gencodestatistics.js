@@ -41,11 +41,22 @@ var statRules = {};
 
 var sendPayload = function(payload) {
     var dat = {payload: payload};
-    console.log(dat);
+    // console.log(dat);
 
-    $.post("/analyze", dat, function(data, status) {
-        console.log("Data: " + data + "\nStatus: " + status);
-    });
+    let out = 0; 
+ 
+    $.ajax({
+        type: 'POST', 
+        url: '/analyze', 
+        data: dat, 
+        async: false, 
+        success: function(score, status) {
+            // console.log("Score: " + score + "\nStatus: " + status);
+            out = score; 
+        }
+    }); 
+
+    return parseFloat(out); 
 }
 
 function genCodeStatistics(rawCode) 
@@ -113,11 +124,11 @@ function requestReadability(stats)
         stats.maxIdentifiersPerLine 
     ];
 
-    console.log(inputs);
+    // console.log(inputs);
 
-    sendPayload(inputs); 
-
-    return Math.random(); 
+    let score = sendPayload(inputs); 
+    console.log('Payload score: ' + score); 
+    return score; 
 }
 
 function findFunctionsInCode(tokens, lines) 
@@ -273,6 +284,7 @@ function getSlidingWindowRatings(rawCode){
     let ratings = [];
     let text = [];
     let wndw;
+
     // console.log('lines: ' + lines.length); 
     for (let i = 0; i < lines.length; i++){
         wndw = "";
@@ -297,6 +309,7 @@ function getSlidingWindowRatings(rawCode){
         let readability = requestReadability(stats.all); 
         ratings.push({ readability: readability });
     }
+    console.log(ratings); 
     lineratings = [];
     for (let i = 0; i <lines.length; i++){
         lineratings.push(getRatingAverage(ratings.slice(i, i+5)));
