@@ -2,10 +2,18 @@
 
 #codebox-div {
     height: 70%; 
-    width: 70%; 
+    width: 100%; 
     display: block; 
     margin-left: auto; 
     margin-right: auto;
+}
+
+#formatted-div {
+    width: 100%; 
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto;
+    text-align: left;
 }
 
 #codebox {
@@ -17,13 +25,24 @@
     resize: none;
 }
 
+#formatted-code {
+    width: 100%;
+}
+
 #watson-submit-button {
     float: right!important;
     margin-right: 10px;
 }
 
+<<<<<<< HEAD
 #codeblock { 
     height:60%;
     width:80%
 }
 
+=======
+#watson-reset-button {
+    float: left!important;
+    margin-left: 10px;
+}
+>>>>>>> 23bbe47968860591ae3903b5a0da6fc7351e5340

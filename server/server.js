@@ -28,6 +28,10 @@ require('./routers/index')(app, server);
 var IBMCloudEnv = require('ibm-cloud-env');
 IBMCloudEnv.init();
 
+//var Watson = require('ibm-watson');
+
+require('./process.js');
+
 const port = process.env.PORT || localConfig.port;
 server.listen(port, function(){
   logger.info(`nodejswebapp listening on http://localhost:${port}/appmetrics-dash`);
