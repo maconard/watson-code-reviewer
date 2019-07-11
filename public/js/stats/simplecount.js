@@ -21,7 +21,7 @@ statRules.simpleCount = function(stats, code)
     let parenCheck = /\(|\)/g; 
     let parenSpaceCheck = /\(\s|\s\)/g; 
     let periodCheck = /\./g; 
-    let compareCheck = />|>=|==|<|<=|!=|compareTo|equals/g; 
+    let compareCheck = />=|>|==|<=|<|!=|compareTo|equals/g; 
     let spacesCheck = / /g; 
     let tabsCheck = /\t/g; 
     let tokenCheck = /[_a-zA-Z][_a-zA-Z0-9]*/g; // TODO no keywords? no strings? 
@@ -55,7 +55,7 @@ statRules.simpleCount = function(stats, code)
     getSimpleCountTotal(stats, code, 'maxIdentifiersPerLine', max, tokenCheck); 
 }
 
-function getSimpleCount(stats, code, lineName, totalName, totalFunc, regex) 
+function getSimpleCount(stats, code, lineName, regex) 
 {
     for (let i in code.lines) 
     {
