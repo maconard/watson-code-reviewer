@@ -40,7 +40,7 @@ var sendPayload = function(dataArray,res) {
         }
         var result = parsedPostResponse.values[0];
         var score = Math.round(result[17][0] * 1000,0.1)/10.0;
-        console.log("\nScore: " + (result[17][0] >= .70 ? "Readable, " : "Not readable, ") + score + " points");
+        //console.log("\nScore: " + (result[17][0] >= .70 ? "Readable, " : "Not readable, ") + score + " points");
         res.send(''+score);
     }, function (error) {
         console.log("Scoring error:");
@@ -50,7 +50,7 @@ var sendPayload = function(dataArray,res) {
 };
 
 var sendBatch = function(dataArray,res) {
-    const payload = '{"fields": ["maxLineLength", "avgLineLength", "avgParensPerLine", "maxParensPerLine", "avgParenSpaceBuffersPerLine", "avgPeriodsPerLine", "maxPeriodsPerLine", "avgComparisonsPerLine", "maxComparisonsPerLine", "avgSpacesPerLine", "maxSpacesPerLine", "avgTabsPerLine", "maxTabsPerLine", "avgIdentifiersPerLine", "maxIdentifiersPerLine"], "values": [' + dataArray + ']}';
+    const payload = '{"fields": ["maxLineLength", "avgLineLength", "avgParensPerLine", "maxParensPerLine", "avgParenSpaceBuffersPerLine", "avgPeriodsPerLine", "maxPeriodsPerLine", "avgComparisonsPerLine", "maxComparisonsPerLine", "avgSpacesPerLine", "maxSpacesPerLine", "avgTabsPerLine", "maxTabsPerLine", "avgIdentifiersPerLine", "maxIdentifiersPerLine"], "values": ' + dataArray + '}';
     console.log(payload);
     apiPost(payload, function (resp) {
 	    let parsedPostResponse;
@@ -58,11 +58,14 @@ var sendBatch = function(dataArray,res) {
 		    parsedPostResponse = JSON.parse(this.responseText);
 	    } catch (ex) {
         }
-        console.log(parsedPostResponse);
-        //var result = parsedPostResponse.values[0];
-        //var score = Math.round(result[17][0] * 1000,0.1)/10.0;
-        //console.log("\nScore: " + (result[17][0] >= .70 ? "Readable, " : "Not readable, ") + score + " points");
-        //res.send(''+score);
+        
+        var scores = [];
+        for(let k in parsedPostResponse.values) {
+            var score = Math.round(parsedPostResponse.values[k][17][0] * 1000,0.1)/10.0;
+            scores.push(score);
+        }
+        console.log(''+scores);
+        res.send(''+scores);
     }, function (error) {
         console.log("Scoring error:");
 	    console.log(error);

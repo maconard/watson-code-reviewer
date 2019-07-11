@@ -44,16 +44,18 @@ app.route('/analyze').post(function (req, res) {
     var payload = req.body.payload;
     payload = payload.map(Number);
     
-    console.log("Sending payload....");
+    console.log("Sending payload...");
     sendPayload(payload,res);
 });
 
 app.route('/analyze-batch').post(function (req, res) {
     var payload = req.body.payload;
-    payload = payload.map(Number);
+    for(let k in payload) {
+        payload[k] = payload[k].map(Number);
+    }
     
-    console.log("Sending payload....");
-    //sendPayload(payload,res);
+    console.log("Sending batch...");
+    sendBatch(JSON.stringify(payload),res);
 });
 
 app.use(function (req, res, next) {
