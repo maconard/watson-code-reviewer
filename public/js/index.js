@@ -1,16 +1,13 @@
 //import { Button } from 'carbon-components-react';
 
-<<<<<<< HEAD
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './App'
+//import React from 'react'
+//import ReactDOM from 'react-dom'
+//import App from './App'
+//ReactDOM.render((
+//    <App/>
+//), document.getElementById('root')
+//);
 
-ReactDOM.render((
-    <App/>
-), document.getElementById('root')
-
-);
-=======
 $(document).ready(function() {
     let submitCodeBtn = $('#watson-submit-button');
     let resetCodeBtn = $('#watson-reset-button');
@@ -48,4 +45,3 @@ $(document).ready(function() {
         codeBox.show();
     });
 });
->>>>>>> 23bbe47968860591ae3903b5a0da6fc7351e5340
