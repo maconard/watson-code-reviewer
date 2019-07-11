@@ -21,7 +21,7 @@ statRules.simpleCount = function(stats, code)
     let parenCheck = /\(|\)/g; 
     let parenSpaceCheck = /\(\s|\s\)/g; 
     let periodCheck = /\./g; 
-    let compareCheck = />|>=|==|<|<=|!=|compareTo|equals/g; 
+    let compareCheck = />=|>|==|<=|<|!=|compareTo|equals/g; 
     let spacesCheck = / /g; 
     let tabsCheck = /\t/g; 
     let tokenCheck = /[_a-zA-Z][_a-zA-Z0-9]*/g; // TODO no keywords? no strings? 

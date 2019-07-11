@@ -1,3 +1,41 @@
+const TOKEN_UNKNOWN = 'unknown'; 
+const TOKEN_WHITESPACE = 'whitespace'; 
+const TOKEN_COMPARISON = 'comparison'; 
+const TOKEN_KEYWORD = 'keyword'; 
+const TOKEN_IDENTIFIER = 'identifier'; 
+const TOKEN_ANNOTATION = 'annotation'; 
+const TOKEN_NUMBER = 'number'; 
+const TOKEN_STRING = 'string'; 
+const TOKEN_PAREN_OPEN = 'paren_open'; 
+const TOKEN_PAREN_CLOSE = 'paren_close'; 
+const TOKEN_BRACE_OPEN = 'brace_open'; 
+const TOKEN_BRACE_CLOSE = 'brace_close'; 
+
+const FIND_WHITESPACE = /\t| /; 
+const FIND_ANNOTATION = /@[a-zA-Z][a-zA-Z0-9]*/; 
+const FIND_IDENTIFIER = /[a-zA-Z][a-zA-Z0-9]*/; 
+const FIND_MATH = /\+\+|\+|--|-|\*|\/|%/; 
+const FIND_MISC_LOGIC = /~|\+\+|--|\|\||&&|\^|\||&/; 
+
+const KEYWORDS = 
+{
+    if: true, 
+    else: true, 
+    while: true, 
+    do: true, 
+    class: true, 
+    new: true, 
+    extends: true, 
+    public: true, 
+    protected: true, 
+    private: true, 
+    void: true, 
+    return: true, 
+    continue: true, 
+    break: true, 
+    for: true  
+};
+
 var statRules = {}; 
 
 function genCodeStatistics(rawCode) 
@@ -7,7 +45,8 @@ function genCodeStatistics(rawCode)
     let code = 
     {
         all: { lines: lines }, 
-        functions: findFunctionsInCode(lines)  
+        functions: findFunctionsInCode(lines), 
+        tokens: tokenizeLines(lines) 
     };
 
     let stats = 
@@ -82,6 +121,58 @@ function findFunctionsInCode(lines)
     }
 
     return functions; 
+}
+
+function tokenizeLines(lines) 
+{
+    console.log('tokenize'); 
+    let tokens = []; 
+
+    // this mess should be good enough 
+    let tokenize = /\t| |~|\+\+|\+|--|-|\*|\/|%|\|\||&&|\^|\||&|\{|\}|\[|\]|>=|>|==|<=|<|!=|=|\.|\,|\(|\)|;|:|@[a-zA-Z][a-zA-Z0-9]*|'.*?'|".*?"|[a-zA-Z][a-zA-Z0-9]*/g; 
+
+    for (let i in lines) 
+    {
+        let line = lines[i]; 
+        let tokens = line.match(tokenize); 
+
+        if (tokens != null) 
+        {
+            for (j in tokens) 
+            {
+                let token = tokens[j]; 
+                let entry = {
+                    line: parseInt(i), 
+                    value: token, 
+                    type: getTokenType(token) 
+                }; 
+
+                console.log('token: "' + JSON.stringify(entry) + '"'); 
+            }
+        }
+    }
+
+    return tokens; 
+}
+
+// TODO add as needed 
+function getTokenType(token) 
+{
+    if (token == ' ' || token == '\t') return TOKEN_WHITESPACE; 
+
+    else if (token == '(') return TOKEN_PAREN_OPEN; 
+    else if (token == ')') return TOKEN_PAREN_CLOSE; 
+    else if (token == '{') return TOKEN_BRACE_OPEN; 
+    else if (token == '}') return TOKEN_BRACE_CLOSE; 
+
+    else if (token.match(FIND_ANNOTATION)) return TOKEN_ANNOTATION; 
+    else if (token.match(FIND_IDENTIFIER)) 
+    {
+        if (KEYWORDS[token]) return TOKEN_KEYWORD; 
+        else return TOKEN_IDENTIFIER; 
+    }
+
+    else return TOKEN_UNKNOWN; 
 }
 
 function createFunctionData(name, lines, start, end) 
