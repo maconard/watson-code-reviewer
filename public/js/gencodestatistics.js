@@ -39,6 +39,15 @@ const KEYWORDS =
 
 var statRules = {}; 
 
+var sendPayload = function(payload) {
+    var dat = {payload: payload};
+    console.log(dat);
+
+    $.post("/analyze", dat, function(data, status) {
+        console.log("Data: " + data + "\nStatus: " + status);
+    });
+}
+
 function genCodeStatistics(rawCode) 
 {
     let lines = rawCode.split('\n'); 
@@ -81,6 +90,34 @@ function genCodeStatistics(rawCode)
     }
 
     return stats; 
+}
+
+function requestReadability(stats) 
+{
+    // maxLineLength,avgLineLength,avgParensPerLine,maxParensPerLine,avgParenSpaceBuffersPerLine,avgPeriodsPerLine,maxPeriodsPerLine,avgComparisonsPerLine,maxComparisonsPerLine,avgSpacesPerLine,maxSpacesPerLine,avgTabsPerLine,maxTabsPerLine,avgIdentifiersPerLine,maxIdentifiersPerLine
+    let inputs = [
+        stats.maxLineLength, 
+        stats.avgLineLength, 
+        stats.avgParensPerLine, 
+        stats.maxParensPerLine, 
+        stats.avgParenSpaceBuffersPerLine, 
+        stats.avgPeriodsPerLine, 
+        stats.maxPeriodsPerLine, 
+        stats.avgComparisonsPerLine, 
+        stats.maxComparisonsPerLine, 
+        stats.avgSpacesPerLine, 
+        stats.maxSpacesPerLine, 
+        stats.avgTabsPerLine, 
+        stats.maxTabsPerLine, 
+        stats.avgIdentifiersPerLine, 
+        stats.maxIdentifiersPerLine 
+    ];
+
+    console.log(inputs);
+
+    sendPayload(inputs); 
+
+    return Math.random(); 
 }
 
 function findFunctionsInCode(tokens, lines) 
@@ -229,4 +266,58 @@ function createFunctionData(name, lines, start, end)
     }
 
     return func; 
+}
+
+function getSlidingWindowRatings(rawCode){
+    let lines = rawCode.split('\n'); 
+    let ratings = [];
+    let text = [];
+    let wndw;
+    // console.log('lines: ' + lines.length); 
+    for (let i = 0; i < lines.length; i++){
+        wndw = "";
+        text.push(lines[i]);
+        if (text.length >5){
+            text.shift();
+        }
+        for(line in text){
+            wndw = wndw + "\n"+text[line];
+        }
+        let stats = genCodeStatistics(wndw); 
+        let readability = requestReadability(stats.all); 
+        ratings.push({ readability: readability });
+    }
+    for (let i = 0; i < 5; i++){
+        wndw = "";
+        text.shift();
+        for(line in text){
+            wndw = wndw + "\n"+text[line];
+        }
+        let stats = genCodeStatistics(wndw); 
+        let readability = requestReadability(stats.all); 
+        ratings.push({ readability: readability });
+    }
+    lineratings = [];
+    for (let i = 0; i <lines.length; i++){
+        lineratings.push(getRatingAverage(ratings.slice(i, i+5)));
+    }
+    return lineratings;
+}
+
+function getRatingAverage(ratings) 
+{
+    newRatings = {}; 
+
+    for (key in ratings[0]) 
+    {
+        let value = ratings[0][key]; 
+        for (let i = 1; i < ratings.length; i++) 
+        {
+            value += ratings[i][key]; 
+        }
+        value /= ratings.length; 
+        newRatings[key] = value; 
+    }
+
+    return newRatings; 
 }

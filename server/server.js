@@ -28,7 +28,6 @@ require('./routers/index')(app, server);
 var IBMCloudEnv = require('ibm-cloud-env');
 IBMCloudEnv.init();
 
-//const watson = require('./process.js');
 var fs = require('fs');
 eval(fs.readFileSync('server/process.js')+'');
 
@@ -43,9 +42,10 @@ app.use(express.urlencoded());
 
 app.route('/analyze').post(function (req, res) {
     var payload = req.body.payload;
-    console.log(sendPayload);
+    payload = payload.map(Number);
+    
     console.log("Sending payload....");
-    sendPayload(JSON.stringify(payload));
+    sendPayload(payload,res);
 });
 
 app.use(function (req, res, next) {

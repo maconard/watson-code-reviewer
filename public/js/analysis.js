@@ -4,13 +4,6 @@ $(document).ready(function() {
     let codeBox = $('#codebox');
     let formatBox = $('#formatted-code');
 
-    var sendPayload = function(payload) {
-        var dat = {payload: payload};
-        $.post("/analyze", dat, function(data, status) {
-            console.log("Data: " + data + "\nStatus: " + status);
-        });
-    }
-
     codeBox.on('keyup', function(e) {
         var code = codeBox.val();
         if(code.length == 0) {
@@ -23,30 +16,7 @@ $(document).ready(function() {
     submitCodeBtn.on('click', function(e) {
         var code = codeBox.val();
 
-        let stats = genCodeStatistics(code); 
-        let all = stats.all; 
-
-        // maxLineLength,avgLineLength,avgParensPerLine,maxParensPerLine,avgParenSpaceBuffersPerLine,avgPeriodsPerLine,maxPeriodsPerLine,avgComparisonsPerLine,maxComparisonsPerLine,avgSpacesPerLine,maxSpacesPerLine,avgTabsPerLine,maxTabsPerLine,avgIdentifiersPerLine,maxIdentifiersPerLine
-        let outputs = [
-            all.maxLineLength, 
-            all.avgLineLength, 
-            all.avgParensPerLine, 
-            all.maxParensPerLine, 
-            all.avgParenSpaceBuffersPerLine, 
-            all.avgPeriodsPerLine, 
-            all.maxPeriodsPerLine, 
-            all.avgComparisonsPerLine, 
-            all.maxComparisonsPerLine, 
-            all.avgSpacesPerLine, 
-            all.maxSpacesPerLine, 
-            all.avgTabsPerLine, 
-            all.maxTabsPerLine, 
-            all.avgIdentifiersPerLine, 
-            all.maxIdentifiersPerLine 
-        ]; 
-        console.log(stats); 
-        console.log(outputs.toString()); 
-        sendPayload(stats);
+        let readabilities = getSlidingWindowRatings(code);//genCodeStatistics(code); 
 
         codeBox.hide();
         formatBox.html("<pre>" + code + "</pre>");
