@@ -1,12 +1,13 @@
-IBM_Cloud_IAM_uid: "bx",
-IBM_Cloud_IAM_pwd: "bx",
-apikey: require("./apikey.js"),
+IBM_Cloud_IAM_uid = "bx";
+IBM_Cloud_IAM_pwd = "bx";
+apikey = require("./apikey.js");
+btoa = require("btoa");
 
 module.exports = {
     mlInstanceId: "df542fb4-f3c6-47a6-8b8a-3e0632efb43c",
-    scoring_url = "",
+    scoring_url: "",
     apikey: apikey,
-    options = { 
+    options: { 
         url     : "https://iam.bluemix.net/oidc/token",
         headers : { 
             "Content-Type"  : "application/x-www-form-urlencoded",

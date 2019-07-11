@@ -1,7 +1,6 @@
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-const btoa = require("btoa");
 const request = require("request");
-const params = require("watsonmodelparams");
+const params = require("./watsonmodelparams");
 const wml_credentials = new Map();
 
 const mlInstanceId = params.mlInstanceId;
