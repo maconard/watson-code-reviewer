@@ -262,7 +262,7 @@ function getSlidingWindowRatings(rawCode){
     let ratings = [];
     let text = [];
     let wndw;
-    console.log('lines: ' + lines.length); 
+    // console.log('lines: ' + lines.length); 
     for (let i = 0; i < lines.length; i++){
         wndw = "";
         text.push(lines[i]);
