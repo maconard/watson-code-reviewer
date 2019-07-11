@@ -55,7 +55,7 @@ statRules.simpleCount = function(stats, code)
     getSimpleCountTotal(stats, code, 'maxIdentifiersPerLine', max, tokenCheck); 
 }
 
-function getSimpleCount(stats, code, lineName, totalName, totalFunc, regex) 
+function getSimpleCount(stats, code, lineName, regex) 
 {
     for (let i in code.lines) 
     {
