@@ -39,11 +39,10 @@ var sendPayload = function(dataArray,res) {
 	    } catch (ex) {
             console.log('Exception parsing JSON response'); 
             console.log(ex); 
+            res.send("error");
+            return;
         }
-        if (parsedPostResponse.values === undefined) 
-        {
-            console.log(parsedPostResponse); 
-        }
+        
         var result = parsedPostResponse.values[0];
         var score = Math.round(result[17][0] * 1000,0.1)/10.0;
         //console.log("\nScore: " + (result[17][0] >= .70 ? "Readable, " : "Not readable, ") + score + " points");
@@ -63,6 +62,10 @@ var sendBatch = function(dataArray,res) {
 	    try {
 		    parsedPostResponse = JSON.parse(this.responseText);
 	    } catch (ex) {
+            console.log('Exception parsing JSON response'); 
+            console.log(ex); 
+            res.send("error");
+            return;
         }
         
         var scores = [];

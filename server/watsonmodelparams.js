@@ -5,8 +5,8 @@ apikey = process.env.apikey;
 btoa = require("btoa");
 
 module.exports = {
-    mlInstanceId: "df542fb4-f3c6-47a6-8b8a-3e0632efb43c",
-    scoring_url: "https://us-south.ml.cloud.ibm.com/v3/wml_instances/df542fb4-f3c6-47a6-8b8a-3e0632efb43c/deployments/d3c99ab0-252b-45e2-9e90-9d16e9450c85/online",
+    mlInstanceId: "4f507160-a2b5-4f76-a6aa-7265feff21ab",
+    scoring_url: "https://us-south.ml.cloud.ibm.com/v3/wml_instances/4f507160-a2b5-4f76-a6aa-7265feff21ab/deployments/5882e7f9-4bd9-490d-bda3-217ca8860285/online",
     apikey: apikey,
     options: { 
         url     : "https://iam.bluemix.net/oidc/token",
